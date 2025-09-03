@@ -21,7 +21,7 @@ const Header: React.FC = () => {
   ];
 
   return (
-    <header className="bg-white/80 dark:bg-brand-dark/80 backdrop-blur-md fixed w-full z-50 shadow-sm text-gray-800 dark:text-gray-200">
+    <header className="bg-white/90 dark:bg-brand-dark/90 backdrop-blur-md fixed w-full z-50 shadow-sm text-gray-800 dark:text-gray-200">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         <Link to="/" className="text-2xl font-bold text-theme-primary">
           Charming Moments
@@ -71,7 +71,7 @@ const Header: React.FC = () => {
                 className={`text-center py-2 rounded-md transition-all duration-300 ${
                   isActive(to)
                     ? 'bg-theme-primary text-white font-semibold'
-                    : 'hover:bg-theme-secondary dark:hover:bg-white/10'
+                    : 'bg-opacity-10 hover:bg-theme-secondary dark:hover:bg-white/10'
                 }`}
                 onClick={toggleMenu}
               >

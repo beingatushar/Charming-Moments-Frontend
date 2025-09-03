@@ -3,15 +3,21 @@ export default {
   darkMode: 'class', // Enable dark mode using a class
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {
+     extend: {
       colors: {
+        // Refined 'brand' colors for your base theme
         brand: {
           pink: '#ec4899',
           'pink-light': '#fce7f3',
-          dark: '#1f2937',
-          'dark-secondary': '#374151',
-          light: '#f9fafb',
-          'light-secondary': '#f3f4f6',
+          // VIBRANT PINKS (kept from before, can be used as an accent)
+
+          // DEEPER & RICHER DARK THEME
+          dark: '#0B1120',           // Deep Navy - for the main background
+          'dark-secondary': '#161E31', // Lighter Navy - for cards and surfaces
+
+          // CLEAN LIGHT THEME (remains the same)
+          light: '#f8fafc',
+          'light-secondary': '#ffffff',
         },
         'theme-primary': 'var(--theme-primary)',
         'theme-secondary': 'var(--theme-secondary)',

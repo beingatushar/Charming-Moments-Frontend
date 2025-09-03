@@ -162,7 +162,7 @@ const ProductList: React.FC = () => {
                 'px-5 py-2 text-sm font-medium rounded-full transition duration-300 capitalize',
                 selectedCategories.includes(category)
                   ? 'bg-theme-primary text-white shadow-lg'
-                  : 'bg-gray-100 dark:bg-brand-dark-secondary text-gray-700 dark:text-gray-200 hover:bg-theme-secondary hover:text-black'
+                  : 'bg-gray-100 dark:bg-brand-dark-secondary text-gray-700 dark:text-gray-200 hover:bg-theme-primary hover:dark:bg-theme-primary hover:text-black'
               )}
             >
               {category.replace(/-/g, ' ')}

@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { toast } from 'react-hot-toast';
 import HeroSection from '../components/common/HeroSection';
 import { FaPaperPlane } from 'react-icons/fa';
+import contactImage from '../assets/contact.jpeg';
 
 interface FormState {
   name: string;
@@ -158,7 +159,7 @@ const ContactPage: React.FC = () => (
     <HeroSection
       title="Contact Us"
       subtitle="We are here to help and answer any question you might have."
-      backgroundImage="https://source.unsplash.com/random/1600x900/?contact,support"
+      backgroundImage={contactImage}
     />
     <ContactForm />
   </>
