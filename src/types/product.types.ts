@@ -22,9 +22,7 @@ export interface CartItem {
   quantity: number;
   image: string;
 }
-export interface ApiError {
-  message: string;
-}
+
 export type ProductSortOption =
   | 'price-low-to-high'
   | 'price-high-to-low'
@@ -34,8 +32,3 @@ export type ProductSortOption =
   | 'name-a-z'
   | 'name-z-a'
   | undefined;
-
-export interface ApiError {
-  message: string;
-  errors?: Record<string, string[]>;
-}

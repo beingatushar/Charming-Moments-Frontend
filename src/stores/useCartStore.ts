@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import { CartItem, Product } from '../types';
 import toast from 'react-hot-toast';
+import { CartItem, Product } from '../types/product.types';
 
 const MAX_ITEM_QUANTITY = parseInt(
   import.meta.env.VITE_MAX_ITEM_QUANTITY || '10'

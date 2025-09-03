@@ -1,7 +1,8 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import Spinner from './components/Spinner';
+import Spinner from './components/common/Spinner';
+import Layout from './components/common/Layout';
 
 // Lazy loading pages
 const HomePage = React.lazy(() => import('./pages/HomePage'));
@@ -26,13 +27,32 @@ const App: React.FC = () => {
 
   return (
     <Router>
-      <Toaster />
-      <Suspense fallback={<Spinner />}>
-        <Routes>
-          {routes.map((route, index) => (
-            <Route key={index} path={route.path} element={route.element} />
-          ))}
-        </Routes>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        toastOptions={{
+          className: '',
+          style: {
+            border: '1px solid #713200',
+            padding: '16px',
+            color: '#713200',
+          },
+        }}
+      />
+      <Suspense
+        fallback={
+          <div className="flex h-screen items-center justify-center bg-brand-light dark:bg-brand-dark">
+            <Spinner />
+          </div>
+        }
+      >
+        <Layout>
+          <Routes>
+            {routes.map((route, index) => (
+              <Route key={index} path={route.path} element={route.element} />
+            ))}
+          </Routes>
+        </Layout>
       </Suspense>
     </Router>
   );

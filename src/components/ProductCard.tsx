@@ -1,83 +1,54 @@
-// components/shared/ProductCard.tsx
 import { Link } from 'react-router-dom';
-import { Product } from '../types';
 import clsx from 'clsx';
-import { useCart } from '../hooks/useCart';
+import { FaShoppingCart } from 'react-icons/fa';
+import { Product } from '../types/product.types';
+import useCartStore from '../stores/useCartStore';
 
 interface ProductCardProps {
   product: Product;
-  className?: string;
-  imageClassName?: string;
-  variant?: 'default' | 'compact';
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({
-  product,
-  className = '',
-  imageClassName = 'h-48',
-  variant = 'default',
-}) => {
-  const { handleAddToCart } = useCart();
+export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const { handleAddToCart } = useCartStore();
+
   return (
     <div
       className={clsx(
-        'min-h-[350px] flex flex-col justify-between bg-white rounded-xl shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg',
-        variant === 'default' && 'hover:-translate-y-1',
-        className
+        'group relative flex flex-col justify-between bg-white dark:bg-brand-dark-secondary rounded-xl shadow-md overflow-hidden',
+        'transition-all duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-2'
       )}
     >
-      <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden flex-shrink-0">
-        <img
-          loading="lazy"
-          src={product.image}
-          alt={product.name}
-          className={clsx(
-            'w-full object-cover transition-transform duration-300 group-hover:scale-105',
-            imageClassName
-          )}
-        />
-      </div>
-
-      <div
-        className={clsx(
-          'p-3 rounded-2xl shadow-md bg-white grid grid-rows-[auto_1fr_auto] gap-4 transition-all',
-          variant === 'compact' && 'p-2'
-        )}
-      >
-        <div className="space-y-2">
-          <h3 className="text-lg font-semibold text-gray-800 hover:text-pink-600 transition-colors line-clamp-2">
-            <Link to={`/product/${product.id}`}>{product.name}</Link>
-          </h3>
-          <p className="text-gray-700 font-medium text-base">
-            ₹{product.price}
-          </p>
-
-          {variant === 'default' && product?.features?.length! > 0 && (
-            <ul className="mt-2 space-y-1 text-sm text-gray-500 list-disc list-inside">
-              {product.features?.map((feature, index) => (
-                <li key={index}>{feature}</li>
-              ))}
-            </ul>
-          )}
+      <Link to={`/product/${product.id}`} className="block">
+        <div className="aspect-square w-full overflow-hidden">
+          <img
+            loading="lazy"
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
         </div>
+      </Link>
 
-        <div
-          className={clsx(
-            'grid gap-2',
-            variant === 'default' ? 'mt-4' : 'mt-3'
-          )}
-        >
+      <div className="p-4 flex flex-col flex-grow">
+        <h3 className="text-md font-semibold text-gray-800 dark:text-gray-100 line-clamp-2 flex-grow">
           <Link
             to={`/product/${product.id}`}
-            className="w-full text-center bg-pink-500 hover:bg-pink-600 text-white py-2 rounded-xl text-sm font-semibold shadow-sm transition"
+            className="hover:text-theme-primary transition-colors"
           >
-            View Details
+            {product.name}
           </Link>
+        </h3>
+        <p className="text-lg text-theme-primary font-bold mt-2">
+          ₹{product.price.toFixed(2)}
+        </p>
+
+        <div className="mt-4">
           <button
             onClick={() => handleAddToCart(product)}
             aria-label={`Add ${product.name} to cart`}
-            className="w-full text-center bg-gray-900 hover:bg-gray-700 text-white py-2 rounded-xl text-sm font-semibold shadow-sm transition"
+            className="w-full flex items-center justify-center gap-2 bg-gray-800 hover:bg-theme-primary text-white py-2.5 rounded-lg text-sm font-semibold shadow-sm transition-all duration-300 transform active:scale-95 dark:bg-gray-700 dark:hover:bg-theme-primary"
           >
+            <FaShoppingCart />
             Add to Cart
           </button>
         </div>
