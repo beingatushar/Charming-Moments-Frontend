@@ -10,6 +10,8 @@ interface ProductStore {
   fetchAllProducts: (options?: {
     categories?: string[];
     sortBy?: ProductSortOption;
+    page?: number;
+    limit?: number;
   }) => Promise<Product[]>;
 
   getAllCategories: () => Promise<string[]>;

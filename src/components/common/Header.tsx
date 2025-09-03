@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FaBars, FaTimes, FaShoppingBag } from 'react-icons/fa';
+import ThemeToggle from './ThemeToggle';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,11 +12,7 @@ const Header: React.FC = () => {
   };
 
   const isActive = (path: string) => location.pathname === path;
-  const linkStyles =
-    'transition-all duration-300 hover:text-pink-500 hover:bg-opacity-20 hover:-translate-y-1';
-  const activeLinkStyles = 'text-pink-500 font-bold';
 
-  // Navigation links with labels
   const navLinks = [
     { to: '/', label: 'Home' },
     { to: '/shop', label: 'Shop' },
@@ -24,70 +21,61 @@ const Header: React.FC = () => {
   ];
 
   return (
-    <header className="bg-black bg-opacity-40 backdrop-blur-md fixed w-full z-50 shadow-sm text-white">
-      <div className="container  mx-auto px-6 py-4 flex justify-between items-center">
-        {/* Mobile Menu Toggle */}
-        <button
-          onClick={toggleMenu}
-          className="md:hidden hover:text-pink-500 focus:outline-none"
-        >
-          {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
-        </button>
-        {/* Left: Logo */}
-
-        <Link
-          to="/"
-          className="text-2xl font-bold hover:text-pink-500 transition duration-300 bg-black bg-opacity-[0.02] py-1 px-2 rounded"
-        >
+    <header className="bg-white/80 dark:bg-brand-dark/80 backdrop-blur-md fixed w-full z-50 shadow-sm text-gray-800 dark:text-gray-200">
+      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+        <Link to="/" className="text-2xl font-bold text-brand-pink">
           Charming Moments
         </Link>
-
-        {/* Center: Desktop Navigation */}
-        <div className="hidden md:flex space-x-6 items-center">
-          <nav className="flex space-x-6 items-center">
-            {navLinks.map(({ to, label }) => (
-              <Link
-                key={to}
-                to={to}
-                className={`${linkStyles} ${
-                  isActive(to) ? activeLinkStyles : ''
-                }`}
-              >
-                {label}
-              </Link>
-            ))}
-          </nav>
-        </div>
-
-        {/* Right: Cart + Mobile Toggle */}
+        <nav className="hidden md:flex space-x-8 items-center">
+          {navLinks.map(({ to, label }) => (
+            <Link
+              key={to}
+              to={to}
+              className={`transition-all duration-300 hover:text-brand-pink ${
+                isActive(to) ? 'text-brand-pink font-semibold' : ''
+              }`}
+            >
+              {label}
+            </Link>
+          ))}
+        </nav>
         <div className="flex items-center space-x-4">
-          {/* Cart Icon - Always visible */}
+          <ThemeToggle />
           <Link
             to="/cart"
             aria-label="Cart"
-            className={`rounded-full p-2 bg-pink-100 text-pink-600 hover:bg-pink-200 hover:text-pink-700 transition-colors duration-200 shadow-md ${
-              isActive('/cart') ? 'ring-2 ring-pink-500' : ''
+            className={`p-2 rounded-full transition-colors duration-200 ${
+              isActive('/cart')
+                ? 'bg-brand-pink text-white'
+                : 'bg-gray-100 dark:bg-brand-dark-secondary text-gray-600 dark:text-gray-300 hover:bg-pink-100 dark:hover:bg-brand-dark'
             }`}
           >
             <FaShoppingBag size={24} />
           </Link>
+          <button
+            onClick={toggleMenu}
+            className="md:hidden text-gray-800 dark:text-gray-200 hover:text-brand-pink dark:hover:text-brand-pink focus:outline-none"
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+          </button>
         </div>
       </div>
-
-      {/* Mobile Navigation */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white bg-opacity-95 backdrop-blur-md">
-          <nav className="flex flex-col space-y-4 p-6 items-center">
-            {navLinks.map((item) => (
+        <div className="md:hidden bg-white dark:bg-brand-dark shadow-lg">
+          <nav className="flex flex-col space-y-4 p-6">
+            {navLinks.map(({ to, label }) => (
               <Link
-                key={item.to}
-                to={item.to}
-                className={`${linkStyles} ${
-                  isActive(item.to) ? activeLinkStyles : ''
-                } text-center`}
+                key={to}
+                to={to}
+                className={`text-center py-2 rounded-md transition-all duration-300 ${
+                  isActive(to)
+                    ? 'bg-brand-pink text-white font-semibold'
+                    : 'hover:bg-gray-100 dark:hover:bg-brand-dark-secondary'
+                }`}
                 onClick={toggleMenu}
               >
-                {item.label}
+                {label}
               </Link>
             ))}
           </nav>

@@ -1,58 +1,151 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../components/common/Header';
-import Footer from '../components/common/Footer';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
+import { FaGift, FaStar, FaShippingFast } from 'react-icons/fa';
+
 import HeroSection from '../components/common/HeroSection';
 import CategorySlider from '../components/CategorySlider';
-import toast from 'react-hot-toast';
-import Spinner from '../components/common/Spinner'; // Ensure Spinner is imported
+import Spinner from '../components/common/Spinner';
+import { ProductCard } from '../components/ProductCard';
+
 import { useProductStore } from '../stores/useProductStore';
-import homepageImage from '../assets/logo.png';
+import { Product } from '../types/product.types';
+
+import homepageImage from '../assets/home.png';
+
+const FeaturedProducts: React.FC = () => {
+  const { fetchAllProducts } = useProductStore();
+  const [featured, setFeatured] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const loadFeatured = async () => {
+      try {
+        const products = await fetchAllProducts({
+          sortBy: 'rating-high-to-low',
+        });
+        setFeatured(products.slice(0, 4));
+      } catch (error) {
+        console.error('Failed to fetch featured products', error);
+      }
+    };
+    loadFeatured();
+  }, [fetchAllProducts]);
+
+  if (featured.length === 0) return null;
+
+  return (
+    <section className="bg-white py-16">
+      <div className="container mx-auto px-6">
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">
+          Featured Products
+        </h2>
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          {featured.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const OurPromise: React.FC = () => {
+  const promises = [
+    {
+      icon: <FaGift size={32} className="text-pink-500" />,
+      title: 'Uniquely Handcrafted',
+      description:
+        'Every item is crafted with love, ensuring no two pieces are exactly alike.',
+    },
+    {
+      icon: <FaStar size={32} className="text-pink-500" />,
+      title: 'Premium Quality',
+      description:
+        'We use only the finest materials to create products that last.',
+    },
+    {
+      icon: <FaShippingFast size={32} className="text-pink-500" />,
+      title: 'Fast & Reliable Shipping',
+      description:
+        'Your treasures are packed with care and shipped to you promptly.',
+    },
+  ];
+
+  return (
+    <section className="bg-pink-50 py-16">
+      <div className="container mx-auto px-6">
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">
+          Our Promise
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          {promises.map((promise) => (
+            <div key={promise.title} className="p-6">
+              <div className="flex justify-center mb-4">{promise.icon}</div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                {promise.title}
+              </h3>
+              <p className="text-gray-600">{promise.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
 
 const HomePage: React.FC = () => {
-  // Destructure and provide better names for clarity
   const getAllCategories = useProductStore((state) => state.getAllCategories);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [allCategories, setAllCategories] = useState<string[]>([]);
-  // Fetch products and handle loading
+
   useEffect(() => {
     const loadCategories = async () => {
+      setLoading(true);
       try {
-        setLoading(true);
         const categories = await getAllCategories();
         setAllCategories(categories);
       } catch (error) {
-        console.error('Error fetching products:', error);
-        toast.error('Failed to load products. Please try again.');
+        console.error('Error fetching categories:', error);
+        toast.error('Failed to load product categories.');
       } finally {
         setLoading(false);
       }
     };
     loadCategories();
-  }, []);
+  }, [getAllCategories]);
 
   return (
-    <div className="font-sans bg-gray-50 min-h-screen">
-      <Header />
-
-      {/* Hero Section */}
+    <div className="animate-fade-in">
       <HeroSection
-        title="Discover Handmade Elegance & Sweet Indulgences"
+        title="Handmade with Heart"
+        subtitle="Discover unique gifts and sweet indulgences crafted with love."
         backgroundImage={homepageImage}
-      />
+      >
+        <Link
+          to="/shop"
+          className="mt-8 inline-block bg-pink-500 text-white px-8 py-3 rounded-full font-semibold hover:bg-pink-600 transition duration-300 shadow-lg transform hover:scale-105"
+        >
+          Shop Now
+        </Link>
+      </HeroSection>
 
-      <section className="container mx-auto px-6 py-8">
-        {/* Show a loading spinner while products are being fetched */}
+      <OurPromise />
+
+      <FeaturedProducts />
+
+      <section className="container mx-auto px-6 py-12">
         {loading ? (
-          <Spinner />
+          <div className="flex justify-center">
+            <Spinner />
+          </div>
         ) : (
-          // Render category sliders dynamically
-          allCategories.map((category) => (
-            <CategorySlider key={category} category={category} />
-          ))
+          <div className="space-y-12">
+            {allCategories.map((category) => (
+              <CategorySlider key={category} category={category} />
+            ))}
+          </div>
         )}
       </section>
-
-      <Footer />
     </div>
   );
 };

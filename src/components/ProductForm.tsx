@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+// src/components/ProductForm.tsx
+import React from 'react';
 import { Product } from '../types/product.types';
 import {
   CancelButton,
@@ -10,6 +11,7 @@ import {
 interface ProductFormProps {
   product: Partial<Product>;
   isEditing: boolean;
+  isSubmitting: boolean;
   onInputChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
@@ -21,15 +23,15 @@ interface ProductFormProps {
 const ProductForm: React.FC<ProductFormProps> = ({
   product,
   isEditing,
+  isSubmitting,
   onInputChange,
   onImageUpload,
   onSubmit,
   onCancel,
 }) => {
-  const [loading] = useState<boolean>(false);
   return (
-    <div className="bg-white shadow-lg rounded-lg p-6 mb-8">
-      <h2 className="text-xl font-bold text-gray-800 mb-4">
+    <div className="bg-white shadow-xl rounded-lg p-6 mb-8">
+      <h2 className="text-2xl font-bold text-gray-800 mb-6 border-b pb-4">
         {isEditing ? 'Edit Product' : 'Add New Product'}
       </h2>
       <form
@@ -38,19 +40,19 @@ const ProductForm: React.FC<ProductFormProps> = ({
           onSubmit();
         }}
       >
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <InputField
-            label="Category"
-            id="category"
-            name="category"
-            value={product.category}
-            onChange={onInputChange}
-          />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <InputField
             label="Product Name"
             id="name"
             name="name"
             value={product.name}
+            onChange={onInputChange}
+          />
+          <InputField
+            label="Category"
+            id="category"
+            name="category"
+            value={product.category}
             onChange={onInputChange}
           />
           <InputField
@@ -61,26 +63,30 @@ const ProductForm: React.FC<ProductFormProps> = ({
             value={product.price}
             onChange={onInputChange}
           />
-          <InputField
-            label="Description"
-            id="description"
-            name="description"
-            value={product.description}
-            onChange={onInputChange}
-          />
-          <InputField
-            label="Image URL"
-            id="image"
-            name="image"
-            value={product.image}
-            onChange={onInputChange}
-          />
+          <div className="sm:col-span-2">
+            <InputField
+              label="Description"
+              id="description"
+              name="description"
+              value={product.description}
+              onChange={onInputChange}
+            />
+          </div>
+          <div className="sm:col-span-2">
+            <InputField
+              label="Image URL"
+              id="image"
+              name="image"
+              value={product.image}
+              onChange={onInputChange}
+            />
+          </div>
           <ImageUploadField
             onImageUpload={onImageUpload}
             newProduct={product}
           />
-          <div className="col-span-full flex flex-col sm:flex-row gap-4">
-            <SubmitButton isEditing={isEditing} loading={loading} />
+          <div className="col-span-full flex flex-col sm:flex-row gap-4 mt-4">
+            <SubmitButton isEditing={isEditing} loading={isSubmitting} />
             {isEditing && <CancelButton onCancel={onCancel} />}
           </div>
         </div>

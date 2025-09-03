@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  @apply bg-brand-light dark:bg-brand-dark text-gray-700 dark:text-gray-300 transition-colors duration-300;
+}
+
 button {
   cursor: pointer;
 }

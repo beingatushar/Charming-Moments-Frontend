@@ -1,151 +1,167 @@
-import React, { useState } from 'react';
-import Header from '../components/common/Header';
-import Footer from '../components/common/Footer';
+import React, { useState, useCallback } from 'react';
+import { toast } from 'react-hot-toast';
 import HeroSection from '../components/common/HeroSection';
+import { FaPaperPlane } from 'react-icons/fa';
 
-// ContactForm Component
+interface FormState {
+  name: string;
+  email: string;
+  message: string;
+}
+
+interface FormErrors {
+  name?: string;
+  email?: string;
+  message?: string;
+}
+
 const ContactForm: React.FC = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
+  const [formState, setFormState] = useState<FormState>({
+    name: '',
+    email: '',
+    message: '',
+  });
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const validateForm = () => {
-    if (!name.trim()) {
-      alert('Please enter your name');
-      return false;
+  const handleInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { id, value } = e.target;
+      setFormState((prev) => ({ ...prev, [id]: value }));
+      if (errors[id as keyof FormErrors]) {
+        setErrors((prev) => ({ ...prev, [id]: undefined }));
+      }
+    },
+    [errors]
+  );
+
+  const validateForm = useCallback(() => {
+    const newErrors: FormErrors = {};
+    if (!formState.name.trim()) newErrors.name = 'Please enter your name.';
+    if (!formState.email.trim()) {
+      newErrors.email = 'Please enter your email.';
+    } else if (!/^\S+@\S+\.\S+$/.test(formState.email)) {
+      newErrors.email = 'Please enter a valid email address.';
     }
-    if (!email.trim() || !/^\S+@\S+\.\S+$/.test(email)) {
-      alert('Please enter a valid email');
-      return false;
-    }
-    if (!message.trim()) {
-      alert('Please enter your message');
-      return false;
-    }
-    return true;
-  };
+    if (!formState.message.trim())
+      newErrors.message = 'Please enter your message.';
 
-  const generateWhatsAppMessage = () => {
-    return `New Contact Form Submission:\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`;
-  };
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  }, [formState]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      if (!validateForm()) {
+        toast.error('Please fill out the form correctly.');
+        return;
+      }
 
-    if (!validateForm()) return;
+      setIsSubmitting(true);
 
-    const whatsappMessage = generateWhatsAppMessage();
-    const encodedMessage = encodeURIComponent(whatsappMessage);
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    const phoneNumber = import.meta.env.VITE_CONTACT_PHONE; // Replace with your WhatsApp number
+      const whatsappMessage = `Hi! I'm ${formState.name}.\n\nMessage: ${formState.message}\n\nMy email is ${formState.email}`;
+      const encodedMessage = encodeURIComponent(whatsappMessage);
+      const phoneNumber = import.meta.env.VITE_CONTACT_PHONE;
 
-    const whatsappUrl = isMobile
-      ? `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`
-      : `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
+      const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
-    window.open(whatsappUrl, isMobile ? '_self' : '_blank');
-  };
+      window.open(whatsappUrl, '_blank');
+
+      setTimeout(() => {
+        setIsSubmitting(false);
+        toast.success('Redirecting to WhatsApp!');
+        setFormState({ name: '', email: '', message: '' });
+      }, 1000);
+    },
+    [formState, validateForm]
+  );
+
+  const InputField: React.FC<{
+    id: keyof FormState;
+    label: string;
+    placeholder: string;
+    type?: string;
+    isTextArea?: boolean;
+  }> = ({ id, label, placeholder, type = 'text', isTextArea = false }) => (
+    <div>
+      <label
+        htmlFor={id}
+        className="block text-sm font-medium text-gray-700 mb-1"
+      >
+        {label}
+      </label>
+      {isTextArea ? (
+        <textarea
+          id={id}
+          value={formState[id]}
+          onChange={handleInputChange}
+          rows={4}
+          className={`w-full px-4 py-2 border rounded-md shadow-sm transition ${errors[id] ? 'border-red-500 ring-red-500' : 'border-gray-300 focus:border-pink-500 focus:ring-pink-500'}`}
+          placeholder={placeholder}
+        />
+      ) : (
+        <input
+          type={type}
+          id={id}
+          value={formState[id]}
+          onChange={handleInputChange}
+          className={`w-full px-4 py-2 border rounded-md shadow-sm transition ${errors[id] ? 'border-red-500 ring-red-500' : 'border-gray-300 focus:border-pink-500 focus:ring-pink-500'}`}
+          placeholder={placeholder}
+        />
+      )}
+      {errors[id] && <p className="text-red-500 text-xs mt-1">{errors[id]}</p>}
+    </div>
+  );
 
   return (
-    <section className="container mx-auto px-6 py-8">
-      <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
-        {import.meta.env.VITE_CONTACT_TITLE || 'Get in Touch With Us'}
-      </h2>
-
-      <div className="mt-8 max-w-2xl mx-auto">
-        <form className="space-y-6" onSubmit={handleSubmit}>
-          {/* Name Input */}
-          <div>
-            <label
-              htmlFor="name"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500"
-              placeholder="Enter your name"
-            />
-          </div>
-
-          {/* Email Input */}
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Email
-            </label>
-            <input
-              type="email"
+    <section className="py-16">
+      <div className="container mx-auto px-6 max-w-2xl">
+        <div className="bg-white p-8 rounded-xl shadow-lg">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-2">
+            Get in Touch
+          </h2>
+          <p className="text-center text-gray-600 mb-8">
+            We'd love to hear from you. Send us a message!
+          </p>
+          <form className="space-y-6" onSubmit={handleSubmit} noValidate>
+            <InputField id="name" label="Name" placeholder="Your Name" />
+            <InputField
               id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500"
-              placeholder="Enter your email"
+              label="Email"
+              placeholder="your.email@example.com"
+              type="email"
             />
-          </div>
-
-          {/* Message Textarea */}
-          <div>
-            <label
-              htmlFor="message"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Message
-            </label>
-            <textarea
+            <InputField
               id="message"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              required
-              rows={4}
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500"
-              placeholder="Write your message"
-            ></textarea>
-          </div>
-
-          {/* Submit Button */}
-          <div>
+              label="Message"
+              placeholder="How can we help you?"
+              isTextArea
+            />
             <button
               type="submit"
-              className="w-full bg-pink-500 text-white px-4 py-2 rounded-lg hover:bg-pink-600 transition duration-300"
+              disabled={isSubmitting}
+              className="w-full flex justify-center items-center gap-2 bg-pink-500 text-white px-6 py-3 rounded-md hover:bg-pink-600 transition duration-300 disabled:bg-pink-300"
             >
-              Send via WhatsApp
+              {isSubmitting ? 'Sending...' : 'Send via WhatsApp'}
+              {!isSubmitting && <FaPaperPlane />}
             </button>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </section>
   );
 };
 
-// ContactPage Component
-const ContactPage: React.FC = () => {
-  return (
-    <div className="font-sans bg-gray-50">
-      {/* Header */}
-      <Header />
-
-      {/* Hero Section */}
-      <HeroSection
-        title="Contact Us"
-        backgroundImage="https://img.freepik.com/free-photo/vintage-pink-telephone-composition_23-2148913955.jpg"
-      />
-
-      {/* Contact Form */}
-      <ContactForm />
-
-      {/* Footer */}
-      <Footer />
-    </div>
-  );
-};
+const ContactPage: React.FC = () => (
+  <>
+    <HeroSection
+      title="Contact Us"
+      subtitle="We are here to help and answer any question you might have."
+      backgroundImage="https://source.unsplash.com/random/1600x900/?contact,support"
+    />
+    <ContactForm />
+  </>
+);
 
 export default ContactPage;

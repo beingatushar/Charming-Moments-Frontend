@@ -17,14 +17,22 @@ const handleApiError = (error: unknown): string => {
 export const fetchAllProducts = async (options?: {
   categories?: string[];
   sortBy?: ProductSortOption;
+  page?: number;
+  limit?: number;
 }): Promise<Product[]> => {
   try {
     const params = new URLSearchParams();
-    if (options?.categories) {
+    if (options?.categories && options.categories.length > 0) {
       params.append('category', JSON.stringify(options.categories));
     }
     if (options?.sortBy) {
       params.append('sortBy', options.sortBy);
+    }
+    if (options?.page) {
+      params.append('page', String(options.page));
+    }
+    if (options?.limit) {
+      params.append('limit', String(options.limit));
     }
 
     const url = `/api/products?${params.toString()}`;
