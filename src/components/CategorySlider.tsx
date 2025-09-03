@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/swiper-bundle.css';
-import { Product } from '../types';
-import { ProductCard } from './ProductCard';
+import { Product } from '../types/product.types';
 import { useProductStore } from '../stores/useProductStore';
+import { ProductCard } from './ProductCard';
 
 interface CategorySliderProps {
   category: string;
@@ -17,8 +17,6 @@ const CategorySlider: React.FC<CategorySliderProps> = ({ category }) => {
   const fetchAllProducts = useProductStore((state) => state.fetchAllProducts);
 
   useEffect(() => {
-    // let isMounted = true;
-
     const loadProducts = async () => {
       try {
         setLoading(true);
@@ -34,7 +32,7 @@ const CategorySlider: React.FC<CategorySliderProps> = ({ category }) => {
     };
 
     loadProducts();
-  }, []);
+  }, [category, fetchAllProducts]);
 
   if (loading) return <p className="text-center py-4">Loading...</p>;
 

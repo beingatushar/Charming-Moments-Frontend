@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import Spinner from './components/Spinner';
+import Spinner from './components/common/Spinner';
 
 // Lazy loading pages
 const HomePage = React.lazy(() => import('./pages/HomePage'));

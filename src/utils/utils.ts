@@ -1,4 +1,4 @@
-import { CartItem } from '../types';
+import { CartItem } from '../types/product.types';
 
 export const generateCheckoutMessage = (
   cart: CartItem[],

@@ -32,8 +32,3 @@ export type ProductSortOption =
   | 'name-a-z'
   | 'name-z-a'
   | undefined;
-
-export interface ApiError {
-  message: string;
-  errors?: Record<string, string[]>;
-}

@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import { Product } from '../types';
-import Spinner from '../components/Spinner';
+import Header from '../components/common/Header';
+import Footer from '../components/common/Footer';
+import { Product } from '../types/product.types';
+import Spinner from '../components/common/Spinner';
 import { FaSearchMinus, FaSearchPlus } from 'react-icons/fa';
 import { useProductStore } from '../stores/useProductStore';
 import useCartStore from '../stores/useCartStore';

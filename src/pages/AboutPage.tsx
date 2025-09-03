@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import HeroSection from '../components/HeroSection';
+import Header from '../components/common/Header';
+import Footer from '../components/common/Footer';
+import HeroSection from '../components/common/HeroSection';
 import aboutImage from '../assets/shop.png';
 // TeamMember Component
 interface TeamMemberProps {

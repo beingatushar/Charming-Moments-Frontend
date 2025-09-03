@@ -1,7 +1,6 @@
-// components/shared/ProductCard.tsx
 import { Link } from 'react-router-dom';
-import { Product } from '../types';
 import clsx from 'clsx';
+import { Product } from '../types/product.types';
 import useCartStore from '../stores/useCartStore';
 
 interface ProductCardProps {

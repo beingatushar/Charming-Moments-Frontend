@@ -23,8 +23,6 @@ const Header: React.FC = () => {
     { to: '/contact', label: 'Contact' },
   ];
 
-  // Separate cart icon from text links
-
   return (
     <header className="bg-black bg-opacity-40 backdrop-blur-md fixed w-full z-50 shadow-sm text-white">
       <div className="container  mx-auto px-6 py-4 flex justify-between items-center">
@@ -51,7 +49,9 @@ const Header: React.FC = () => {
               <Link
                 key={to}
                 to={to}
-                className={`${linkStyles} ${isActive(to) ? activeLinkStyles : ''}`}
+                className={`${linkStyles} ${
+                  isActive(to) ? activeLinkStyles : ''
+                }`}
               >
                 {label}
               </Link>
@@ -82,7 +82,9 @@ const Header: React.FC = () => {
               <Link
                 key={item.to}
                 to={item.to}
-                className={`${linkStyles} ${isActive(item.to) ? activeLinkStyles : ''} text-center`}
+                className={`${linkStyles} ${
+                  isActive(item.to) ? activeLinkStyles : ''
+                } text-center`}
                 onClick={toggleMenu}
               >
                 {item.label}

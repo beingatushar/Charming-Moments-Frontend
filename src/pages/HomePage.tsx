@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import HeroSection from '../components/HeroSection';
+import Header from '../components/common/Header';
+import Footer from '../components/common/Footer';
+import HeroSection from '../components/common/HeroSection';
 import CategorySlider from '../components/CategorySlider';
 import toast from 'react-hot-toast';
-import Spinner from '../components/Spinner'; // Ensure Spinner is imported
+import Spinner from '../components/common/Spinner'; // Ensure Spinner is imported
 import { useProductStore } from '../stores/useProductStore';
 import homepageImage from '../assets/logo.png';
 

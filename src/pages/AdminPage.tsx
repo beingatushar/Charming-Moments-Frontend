@@ -1,13 +1,13 @@
 // src/pages/AdminPage.tsx
 
 import React, { useEffect, useState } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import HeroSection from '../components/HeroSection';
-import { Product } from '../types';
+import Header from '../components/common/Header';
+import Footer from '../components/common/Footer';
+import HeroSection from '../components/common/HeroSection';
 import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { useProductStore } from '../stores/useProductStore';
+import { Product } from '../types/product.types';
 
 // ProductForm Component
 interface ProductFormProps {
