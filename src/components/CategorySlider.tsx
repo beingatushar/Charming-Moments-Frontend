@@ -40,12 +40,12 @@ const CategorySlider: React.FC<CategorySliderProps> = ({ category }) => {
   return (
     <div className="py-8">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl font-bold text-gray-900 capitalize">
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 capitalize">
           {category.replace(/-/g, ' ')}
         </h2>
         <Link
           to={`/shop?categories=${encodeURI(category)}`}
-          className="text-pink-500 hover:text-pink-700 font-semibold"
+          className="text-theme-primary hover:opacity-80 font-semibold transition"
         >
           View All
         </Link>
@@ -72,12 +72,12 @@ const CategorySlider: React.FC<CategorySliderProps> = ({ category }) => {
           ))}
         </Swiper>
         <button
-          className={`prev-button-${sliderId} absolute top-1/2 -left-4 z-10 p-2 bg-white rounded-full shadow-md transform -translate-y-1/2 hover:bg-gray-100 transition`}
+          className={`prev-button-${sliderId} absolute top-1/2 -left-4 z-10 p-2 bg-white dark:bg-brand-dark-secondary text-gray-800 dark:text-gray-300 rounded-full shadow-md transform -translate-y-1/2 hover:bg-theme-secondary dark:hover:bg-white/10 transition`}
         >
           <FaChevronLeft />
         </button>
         <button
-          className={`next-button-${sliderId} absolute top-1/2 -right-4 z-10 p-2 bg-white rounded-full shadow-md transform -translate-y-1/2 hover:bg-gray-100 transition`}
+          className={`next-button-${sliderId} absolute top-1/2 -right-4 z-10 p-2 bg-white dark:bg-brand-dark-secondary text-gray-800 dark:text-gray-300 rounded-full shadow-md transform -translate-y-1/2 hover:bg-theme-secondary dark:hover:bg-white/10 transition`}
         >
           <FaChevronRight />
         </button>

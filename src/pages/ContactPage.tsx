@@ -87,7 +87,7 @@ const ContactForm: React.FC = () => {
     <div>
       <label
         htmlFor={id}
-        className="block text-sm font-medium text-gray-700 mb-1"
+        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
       >
         {label}
       </label>
@@ -97,7 +97,7 @@ const ContactForm: React.FC = () => {
           value={formState[id]}
           onChange={handleInputChange}
           rows={4}
-          className={`w-full px-4 py-2 border rounded-md shadow-sm transition ${errors[id] ? 'border-red-500 ring-red-500' : 'border-gray-300 focus:border-pink-500 focus:ring-pink-500'}`}
+          className={`w-full px-4 py-2 border rounded-md shadow-sm transition bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 ${errors[id] ? 'border-red-500 ring-red-500' : 'border-gray-300 dark:border-gray-600 focus:border-theme-primary focus:ring-1 focus:ring-theme-primary'}`}
           placeholder={placeholder}
         />
       ) : (
@@ -106,7 +106,7 @@ const ContactForm: React.FC = () => {
           id={id}
           value={formState[id]}
           onChange={handleInputChange}
-          className={`w-full px-4 py-2 border rounded-md shadow-sm transition ${errors[id] ? 'border-red-500 ring-red-500' : 'border-gray-300 focus:border-pink-500 focus:ring-pink-500'}`}
+          className={`w-full px-4 py-2 border rounded-md shadow-sm transition bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 ${errors[id] ? 'border-red-500 ring-red-500' : 'border-gray-300 dark:border-gray-600 focus:border-theme-primary focus:ring-1 focus:ring-theme-primary'}`}
           placeholder={placeholder}
         />
       )}
@@ -117,11 +117,11 @@ const ContactForm: React.FC = () => {
   return (
     <section className="py-16">
       <div className="container mx-auto px-6 max-w-2xl">
-        <div className="bg-white p-8 rounded-xl shadow-lg">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-2">
+        <div className="bg-white dark:bg-brand-dark-secondary p-8 rounded-xl shadow-lg">
+          <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-gray-100 mb-2">
             Get in Touch
           </h2>
-          <p className="text-center text-gray-600 mb-8">
+          <p className="text-center text-gray-600 dark:text-gray-400 mb-8">
             We'd love to hear from you. Send us a message!
           </p>
           <form className="space-y-6" onSubmit={handleSubmit} noValidate>
@@ -141,7 +141,7 @@ const ContactForm: React.FC = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full flex justify-center items-center gap-2 bg-pink-500 text-white px-6 py-3 rounded-md hover:bg-pink-600 transition duration-300 disabled:bg-pink-300"
+              className="w-full flex justify-center items-center gap-2 bg-theme-primary text-white px-6 py-3 rounded-md hover:opacity-90 transition duration-300 disabled:opacity-50"
             >
               {isSubmitting ? 'Sending...' : 'Send via WhatsApp'}
               {!isSubmitting && <FaPaperPlane />}

@@ -14,13 +14,15 @@ import ProductImage from '../components/ProductImage';
 
 const ProductNotFound: React.FC = () => (
   <div className="flex flex-col items-center justify-center text-center py-20 min-h-[60vh]">
-    <h1 className="text-4xl font-bold text-gray-800 mb-4">Product Not Found</h1>
-    <p className="text-gray-600 mb-6">
+    <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-100 mb-4">
+      Product Not Found
+    </h1>
+    <p className="text-gray-600 dark:text-gray-400 mb-6">
       Sorry, we couldn't find the product you're looking for.
     </p>
     <Link
       to="/shop"
-      className="bg-pink-500 text-white px-6 py-2 rounded-lg hover:bg-pink-600 transition duration-300"
+      className="bg-theme-primary text-white px-6 py-2 rounded-lg hover:opacity-90 transition duration-300"
     >
       Continue Shopping
     </Link>
@@ -28,23 +30,23 @@ const ProductNotFound: React.FC = () => (
 );
 
 const Breadcrumb: React.FC<{ product: Product }> = ({ product }) => (
-  <nav className="text-sm mb-8 flex items-center space-x-2 text-gray-500 flex-wrap">
-    <Link to="/" className="hover:text-pink-500">
+  <nav className="text-sm mb-8 flex items-center space-x-2 text-gray-500 dark:text-gray-400 flex-wrap">
+    <Link to="/" className="hover:text-theme-primary">
       Home
     </Link>
     <FaChevronRight size={10} />
-    <Link to="/shop" className="hover:text-pink-500">
+    <Link to="/shop" className="hover:text-theme-primary">
       Shop
     </Link>
     <FaChevronRight size={10} />
     <Link
       to={`/shop?categories=${product.category}`}
-      className="hover:text-pink-500 capitalize"
+      className="hover:text-theme-primary capitalize"
     >
       {product.category.replace(/-/g, ' ')}
     </Link>
     <FaChevronRight size={10} />
-    <span className="text-gray-800 font-medium truncate max-w-[150px] sm:max-w-none">
+    <span className="text-gray-800 dark:text-gray-200 font-medium truncate max-w-[150px] sm:max-w-none">
       {product.name}
     </span>
   </nav>
@@ -76,7 +78,7 @@ const RelatedProducts: React.FC<{
 
   return (
     <div className="mt-16 sm:mt-24">
-      <h2 className="text-3xl font-bold text-gray-800 mb-6">
+      <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6">
         Related Products
       </h2>
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6">

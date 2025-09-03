@@ -20,7 +20,10 @@ export const InputField: React.FC<InputFieldProps> = ({
   type = 'text',
 }) => (
   <div className="flex flex-col">
-    <label htmlFor={id} className="text-sm font-medium text-gray-700 mb-1">
+    <label
+      htmlFor={id}
+      className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+    >
       {label}
     </label>
     <input
@@ -30,7 +33,7 @@ export const InputField: React.FC<InputFieldProps> = ({
       value={value}
       onChange={onChange}
       placeholder={label}
-      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-theme-primary bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200"
     />
   </div>
 );
@@ -43,7 +46,7 @@ export const ImageUploadField: React.FC<{
     <div className="flex flex-col">
       <label
         htmlFor="image-upload"
-        className="text-sm font-medium text-gray-700 mb-1"
+        className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
       >
         Upload Image
       </label>
@@ -52,13 +55,13 @@ export const ImageUploadField: React.FC<{
         id="image-upload"
         accept="image/*"
         onChange={onImageUpload}
-        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-theme-primary bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200"
       />
     </div>
 
     {newProduct.image && (
       <div className="col-span-full">
-        <label className="text-sm font-medium text-gray-700 mb-1">
+        <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
           Image Preview
         </label>
         <img
@@ -79,9 +82,7 @@ export const SubmitButton: React.FC<{
   <button
     type="submit"
     disabled={loading}
-    className={`w-full sm:w-auto ${
-      loading ? 'bg-pink-300' : 'bg-pink-500'
-    } text-white px-4 py-2 rounded-lg hover:bg-pink-600 transition duration-300`}
+    className="w-full sm:w-auto bg-theme-primary text-white px-4 py-2 rounded-lg hover:opacity-90 transition duration-300 disabled:opacity-50"
   >
     {loading ? 'Saving...' : isEditing ? 'Update Product' : 'Add Product'}
   </button>
@@ -93,7 +94,7 @@ export const CancelButton: React.FC<{ onCancel: () => void }> = ({
   <button
     type="button"
     onClick={onCancel}
-    className="w-full sm:w-auto bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 transition duration-300"
+    className="w-full sm:w-auto bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500 transition duration-300"
   >
     Cancel
   </button>

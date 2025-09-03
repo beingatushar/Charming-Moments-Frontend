@@ -6,11 +6,23 @@ const ThemeToggle: React.FC = () => {
   const { theme, toggleTheme } = useThemeStore();
 
   useEffect(() => {
+    // Manage dark class on the html element for Tailwind's dark mode
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
+
+    // More robustly manage theme classes on the body
+    const themeClasses = [
+      'theme-light',
+      'theme-dark',
+      'theme-rose',
+      'theme-sky',
+      'theme-amber',
+    ];
+    document.body.classList.remove(...themeClasses);
+    document.body.classList.add(`theme-${theme}`);
   }, [theme]);
 
   return (

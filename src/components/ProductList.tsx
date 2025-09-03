@@ -148,8 +148,8 @@ const ProductList: React.FC = () => {
             className={clsx(
               'px-5 py-2 text-sm font-medium rounded-full transition duration-300',
               selectedCategories.length === 0
-                ? 'bg-brand-pink text-white shadow-lg'
-                : 'bg-gray-100 dark:bg-brand-dark-secondary text-gray-700 dark:text-gray-200 hover:bg-brand-pink hover:text-white'
+                ? 'bg-theme-primary text-white shadow-lg'
+                : 'bg-gray-100 dark:bg-brand-dark-secondary text-gray-700 dark:text-gray-200 hover:bg-theme-secondary hover:text-black'
             )}
           >
             All
@@ -161,8 +161,8 @@ const ProductList: React.FC = () => {
               className={clsx(
                 'px-5 py-2 text-sm font-medium rounded-full transition duration-300 capitalize',
                 selectedCategories.includes(category)
-                  ? 'bg-brand-pink text-white shadow-lg'
-                  : 'bg-gray-100 dark:bg-brand-dark-secondary text-gray-700 dark:text-gray-200 hover:bg-brand-pink hover:text-white'
+                  ? 'bg-theme-primary text-white shadow-lg'
+                  : 'bg-gray-100 dark:bg-brand-dark-secondary text-gray-700 dark:text-gray-200 hover:bg-theme-secondary hover:text-black'
               )}
             >
               {category.replace(/-/g, ' ')}
@@ -172,7 +172,7 @@ const ProductList: React.FC = () => {
         <select
           value={sortBy}
           onChange={(e) => handleSortChange(e.target.value)}
-          className="px-4 py-2 w-60 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-pink bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200"
+          className="px-4 py-2 w-60 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-theme-primary bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200"
           aria-label="Sort products"
         >
           {SORT_OPTIONS.map(({ value, label }) => (

@@ -14,7 +14,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <div
       className={clsx(
-        'group relative flex flex-col justify-between bg-white rounded-xl shadow-md overflow-hidden',
+        'group relative flex flex-col justify-between bg-white dark:bg-brand-dark-secondary rounded-xl shadow-md overflow-hidden',
         'transition-all duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-2'
       )}
     >
@@ -30,15 +30,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       </Link>
 
       <div className="p-4 flex flex-col flex-grow">
-        <h3 className="text-md font-semibold text-gray-800 line-clamp-2 flex-grow">
+        <h3 className="text-md font-semibold text-gray-800 dark:text-gray-100 line-clamp-2 flex-grow">
           <Link
             to={`/product/${product.id}`}
-            className="hover:text-pink-600 transition-colors"
+            className="hover:text-theme-primary transition-colors"
           >
             {product.name}
           </Link>
         </h3>
-        <p className="text-lg text-gray-900 font-bold mt-2">
+        <p className="text-lg text-theme-primary font-bold mt-2">
           ₹{product.price.toFixed(2)}
         </p>
 
@@ -46,7 +46,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <button
             onClick={() => handleAddToCart(product)}
             aria-label={`Add ${product.name} to cart`}
-            className="w-full flex items-center justify-center gap-2 bg-gray-800 hover:bg-pink-500 text-white py-2.5 rounded-lg text-sm font-semibold shadow-sm transition-all duration-300 transform active:scale-95"
+            className="w-full flex items-center justify-center gap-2 bg-gray-800 hover:bg-theme-primary text-white py-2.5 rounded-lg text-sm font-semibold shadow-sm transition-all duration-300 transform active:scale-95 dark:bg-gray-700 dark:hover:bg-theme-primary"
           >
             <FaShoppingCart />
             Add to Cart

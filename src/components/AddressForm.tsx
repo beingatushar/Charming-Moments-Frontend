@@ -22,17 +22,17 @@ const InputField: React.FC<{
   <div>
     <label
       htmlFor={id}
-      className="block text-sm font-medium text-gray-700 mb-1"
+      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
     >
       {label}
     </label>
     <input
       id={id}
       name={id}
-      className={`w-full border px-4 py-2 rounded-md shadow-sm transition ${
+      className={`w-full border px-4 py-2 rounded-md shadow-sm transition bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 ${
         error
           ? 'border-red-500 ring-1 ring-red-500'
-          : 'border-gray-300 focus:border-pink-500 focus:ring-1 focus:ring-pink-500'
+          : 'border-gray-300 dark:border-gray-600 focus:border-theme-primary focus:ring-1 focus:ring-theme-primary'
       }`}
       {...props}
     />
@@ -57,8 +57,8 @@ const AddressForm: React.FC<AddressFormProps> = ({
   };
 
   return (
-    <div className="bg-white shadow-lg rounded-xl p-6 space-y-4">
-      <h2 className="text-2xl font-bold text-gray-800 border-b pb-4">
+    <div className="bg-white dark:bg-brand-dark-secondary shadow-lg rounded-xl p-6 space-y-4">
+      <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 border-b dark:border-gray-600 pb-4">
         Shipping Details
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

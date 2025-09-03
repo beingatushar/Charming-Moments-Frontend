@@ -105,14 +105,14 @@ const ProductImage: React.FC<ProductImageProps> = ({ image, name }) => {
           <div className="absolute bottom-5 flex gap-3 bg-white/20 backdrop-blur-sm p-2 rounded-full">
             <button
               onClick={zoomIn}
-              className="p-2 text-white hover:text-pink-300 transition"
+              className="p-2 text-white hover:text-theme-primary transition"
               aria-label="Zoom in"
             >
               <FaSearchPlus size={20} />
             </button>
             <button
               onClick={zoomOut}
-              className="p-2 text-white hover:text-pink-300 transition"
+              className="p-2 text-white hover:text-theme-primary transition"
               aria-label="Zoom out"
             >
               <FaSearchMinus size={20} />
@@ -120,7 +120,7 @@ const ProductImage: React.FC<ProductImageProps> = ({ image, name }) => {
           </div>
           <button
             onClick={() => setIsZoomOpen(false)}
-            className="absolute top-5 right-5 p-2 text-white hover:text-pink-300 transition"
+            className="absolute top-5 right-5 p-2 text-white hover:text-theme-primary transition"
             aria-label="Close zoom"
           >
             <FaTimes size={24} />

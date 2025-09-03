@@ -13,6 +13,8 @@ export default {
           light: '#f9fafb',
           'light-secondary': '#f3f4f6',
         },
+        'theme-primary': 'var(--theme-primary)',
+        'theme-secondary': 'var(--theme-secondary)',
       },
       keyframes: {
         'fade-in-up': {
@@ -33,4 +35,3 @@ export default {
   },
   plugins: [],
 };
-

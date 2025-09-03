@@ -30,8 +30,8 @@ const ProductForm: React.FC<ProductFormProps> = ({
   onCancel,
 }) => {
   return (
-    <div className="bg-white shadow-xl rounded-lg p-6 mb-8">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6 border-b pb-4">
+    <div className="bg-white dark:bg-brand-dark-secondary shadow-xl rounded-lg p-6 mb-8">
+      <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6 border-b border-gray-200 dark:border-gray-700 pb-4">
         {isEditing ? 'Edit Product' : 'Add New Product'}
       </h2>
       <form

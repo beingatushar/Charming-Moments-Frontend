@@ -20,18 +20,18 @@ const Footer: React.FC = () => {
     children: React.ReactNode;
   }) => (
     <li>
-      <Link to={to} className="hover:text-pink-400 transition-colors">
+      <Link to={to} className="hover:text-theme-primary transition-colors">
         {children}
       </Link>
     </li>
   );
 
   return (
-    <footer className="bg-gray-800 text-gray-300 mt-auto">
+    <footer className="bg-brand-light-secondary dark:bg-gray-800 text-gray-700 dark:text-gray-300 mt-auto">
       <div className="container mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1 md:col-span-2">
-            <h3 className="text-2xl font-bold text-white mb-4">
+            <h3 className="text-2xl font-bold text-theme-primary mb-4">
               Charming Moments
             </h3>
             <p className="max-w-md">
@@ -45,7 +45,7 @@ const Footer: React.FC = () => {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-pink-400 transition-colors"
+                  className="hover:text-theme-primary transition-colors"
                   aria-label={`Follow us on ${link.href.split('.com')[0]}`}
                 >
                   {link.icon}
@@ -54,7 +54,7 @@ const Footer: React.FC = () => {
             </div>
           </div>
           <div>
-            <h3 className="text-xl font-semibold text-white mb-4">
+            <h3 className="text-xl font-semibold text-theme-primary mb-4">
               Quick Links
             </h3>
             <ul className="space-y-2">
@@ -65,7 +65,7 @@ const Footer: React.FC = () => {
             </ul>
           </div>
           <div>
-            <h3 className="text-xl font-semibold text-white mb-4">
+            <h3 className="text-xl font-semibold text-theme-primary mb-4">
               Contact Us
             </h3>
             <ul className="space-y-2">
@@ -74,7 +74,7 @@ const Footer: React.FC = () => {
             </ul>
           </div>
         </div>
-        <div className="border-t border-gray-700 mt-8 pt-6 text-center text-sm">
+        <div className="border-t border-gray-300 dark:border-gray-700 mt-8 pt-6 text-center text-sm">
           <p>
             &copy; {new Date().getFullYear()} Charming Moments. All rights
             reserved.

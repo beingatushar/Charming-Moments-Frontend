@@ -23,7 +23,7 @@ const Spinner: React.FC<SpinnerProps> = React.memo(
       >
         <div
           className={clsx(
-            'animate-spin rounded-full border-t-brand-pink border-r-brand-pink border-b-transparent border-l-transparent',
+            'animate-spin rounded-full border-t-theme-primary border-r-theme-primary border-b-transparent border-l-transparent',
             sizeClasses[size]
           )}
           role="status"
