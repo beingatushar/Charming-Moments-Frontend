@@ -1,6 +1,6 @@
 import React from 'react';
 import HeroSection from '../components/common/HeroSection';
-import aboutImage from '../assets/shop.png';
+import aboutImage from '../assets/about_us.jpg';
 
 const TeamMember: React.FC<{ member: TeamMemberProps }> = ({ member }) => (
   <div className="bg-white dark:bg-brand-dark-secondary rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
