@@ -11,6 +11,7 @@ import { Product, ProductSortOption } from '../types/product.types';
 import { useProductStore } from '../stores/useProductStore';
 import Spinner from './common/Spinner';
 import { ProductCard } from './ProductCard';
+import ProductCardSkeleton from './common/ProductCardSkeleton';
 
 const SORT_OPTIONS: { label: string; value: ProductSortOption | 'default' }[] =
   [
@@ -40,7 +41,6 @@ const ProductList: React.FC = () => {
     return value ? value.split(',') : [];
   }, [searchParams]);
 
-  // Correctly initialize the useRef with null
   const observer = useRef<IntersectionObserver | null>(null);
   const loaderRef = useCallback(
     (node: HTMLDivElement) => {
@@ -56,15 +56,12 @@ const ProductList: React.FC = () => {
     [initialLoading, loadingMore, hasMore]
   );
 
-  // Effect for fetching categories
   useEffect(() => {
     getAllCategories().then(setCategories).catch(console.error);
   }, [getAllCategories]);
 
-  // Stable string dependency for useEffect
   const categoriesDep = selectedCategories.join(',');
 
-  // Effect for fetching products when filters or page change
   useEffect(() => {
     const fetchProducts = async () => {
       if (page === 1) {
@@ -132,8 +129,10 @@ const ProductList: React.FC = () => {
 
   if (initialLoading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <Spinner />
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {Array.from({ length: PAGE_LIMIT }).map((_, index) => (
+          <ProductCardSkeleton key={index} />
+        ))}
       </div>
     );
   }

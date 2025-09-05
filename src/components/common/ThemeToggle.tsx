@@ -28,10 +28,14 @@ const ThemeToggle: React.FC = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 rounded-full text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-brand-dark-secondary hover:bg-pink-100 dark:hover:bg-brand-dark transition-colors duration-300"
+      className="p-2 rounded-full text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-brand-dark-secondary hover:bg-theme-secondary dark:hover:bg-brand-dark transition-colors duration-300 border border-theme-primary"
       aria-label="Toggle theme"
     >
-      {theme === 'light' ? <FaMoon size={20} /> : <FaSun size={20} />}
+      {theme === 'light' ? (
+        <FaMoon size={20} className="text-theme-primary" />
+      ) : (
+        <FaSun size={20} className="text-theme-primary" />
+      )}
     </button>
   );
 };

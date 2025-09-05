@@ -44,7 +44,7 @@ const Header: React.FC = () => {
           <Link
             to="/cart"
             aria-label="Cart"
-            className={`p-2 rounded-full transition-colors duration-200 ${
+            className={`p-2 rounded-full transition-colors duration-200 border border-theme-primary ${
               isActive('/cart')
                 ? 'bg-theme-primary text-white'
                 : 'bg-gray-100 dark:bg-brand-dark-secondary text-gray-600 dark:text-gray-300 hover:bg-theme-secondary dark:hover:bg-white/10'
