@@ -7,18 +7,20 @@ import HeroSection from '../components/common/HeroSection';
 import CategorySlider from '../components/CategorySlider';
 import Spinner from '../components/common/Spinner';
 import { ProductCard } from '../components/ProductCard';
-
 import { useProductStore } from '../stores/useProductStore';
 import { Product } from '../types/product.types';
 
 import homepageImage from '../assets/home.png';
+import ProductCardSkeleton from '../components/common/ProductCardSkeleton';
 
 const FeaturedProducts: React.FC = () => {
   const { fetchAllProducts } = useProductStore();
   const [featured, setFeatured] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const loadFeatured = async () => {
+      setIsLoading(true);
       try {
         const products = await fetchAllProducts({
           sortBy: 'rating-high-to-low',
@@ -26,12 +28,12 @@ const FeaturedProducts: React.FC = () => {
         setFeatured(products.slice(0, 4));
       } catch (error) {
         console.error('Failed to fetch featured products', error);
+      } finally {
+        setIsLoading(false);
       }
     };
     loadFeatured();
   }, [fetchAllProducts]);
-
-  if (featured.length === 0) return null;
 
   return (
     <section className="bg-white dark:bg-brand-dark py-16">
@@ -40,9 +42,13 @@ const FeaturedProducts: React.FC = () => {
           Featured Products
         </h2>
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {featured.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+          {isLoading
+            ? Array.from({ length: 4 }).map((_, index) => (
+                <ProductCardSkeleton key={index} />
+              ))
+            : featured.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
         </div>
       </div>
     </section>
