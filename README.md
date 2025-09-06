@@ -1,55 +1,144 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Charming Moments - Frontend
 
-Currently, two official plugins are available:
+Welcome to the frontend repository for Charming Moments, a delightful e-commerce platform for handcrafted goods and sweet treats. This project is a modern, responsive, and feature-rich web application built with React, Vite, and TypeScript, offering a seamless and engaging user experience.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+* **Modern Tech Stack**: Built with the latest technologies like React 19, Vite, and TypeScript for a fast, efficient, and scalable application.
+* **Responsive Design**: A fully responsive and mobile-first user interface crafted with Tailwind CSS, ensuring a great experience on all devices.
+* **Theming**: A customizable theming system with support for light and dark modes, as well as multiple color themes, managed with Zustand and CSS variables.
+* **State Management**: Centralized and predictable state management using Zustand for cart, products, and theme.
+* **Routing**: Client-side routing with React Router, featuring lazy loading for pages to improve initial load times.
+* **E-commerce Functionality**:
+    * Product listings with filtering and sorting options.
+    * Product detail pages with image zoom and related products.
+    * A fully functional shopping cart with add, remove, and update quantity features.
+    * A streamlined checkout process that integrates with WhatsApp for order placement.
+* **Admin Panel**: A dedicated admin page for managing products, including creating, updating, and deleting items, with image uploads to Cloudinary.
+* **Form Handling and Validation**: Robust form handling with validation for the address and contact forms.
+* **Code Quality**: A consistent and clean codebase maintained with ESLint and Prettier.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 🚀 Tech Stack
+
+* **Framework**: [React 19](https://react.dev/)
+* **Build Tool**: [Vite](https://vitejs.dev/)
+* **Language**: [TypeScript](https://www.typescriptlang.org/)
+* **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+* **State Management**: [Zustand](https://github.com/pmndrs/zustand)
+* **Routing**: [React Router](https://reactrouter.com/)
+* **HTTP Client**: [Axios](https://axios-http.com/)
+* **Image Uploads**: [Cloudinary](https://cloudinary.com/)
+* **Linting**: [ESLint](https://eslint.org/)
+* **Formatting**: [Prettier](https://prettier.io/)
+
+## 🏁 Getting Started
+
+To get a local copy up and running, follow these simple steps.
+
+### Prerequisites
+
+* Node.js (version 18.x or higher)
+* npm or yarn
+
+### Installation
+
+1.  **Clone the repository:**
+    ```sh
+    git clone [https://github.com/beingatushar/charming-moments-frontend.git](https://github.com/beingatushar/charming-moments-frontend.git)
+    cd charming-moments-frontend
+    ```
+
+2.  **Install the dependencies:**
+    ```sh
+    npm install
+    ```
+
+### Environment Variables
+
+Create a `.env` file in the root of the project and add the following environment variables. You can get the necessary values from your backend and Cloudinary setup.
+
+```env
+# Backend Configuration
+VITE_BACKEND_URL=http://localhost:8000
+VITE_BASE_URL=http://localhost:5173
+
+# API Configuration
+VITE_PINCODE_API_URL=[https://api.postalpincode.in/pincode](https://api.postalpincode.in/pincode)
+
+# Cloudinary Configuration
+VITE_CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+VITE_CLOUDINARY_UPLOAD_PRESET=your_cloudinary_upload_preset
+VITE_CLOUDINARY_API_URL=[https://api.cloudinary.com/v1_1](https://api.cloudinary.com/v1_1)
+
+# Cart Configuration
+VITE_MAX_CART_ITEMS=100
+VITE_MAX_ITEM_QUANTITY=10
+VITE_CART_LOCALSTORAGE_KEY=cart-storage
+
+# Contact Configuration
+VITE_CONTACT_PHONE=your_whatsapp_phone_number
+````
+
+### Running the Project
+
+To start the development server, run the following command:
+
+```sh
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The application will be available at `http://localhost:5173`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 📜 Available Scripts
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+In the project directory, you can run:
+
+  * `npm run dev`: Runs the app in development mode.
+  * `npm run build`: Builds the app for production to the `dist` folder.
+  * `npm run preview`: Serves the production build locally.
+  * `npm run lint`: Lints the project files using ESLint.
+  * `npm run format`: Formats the project files using Prettier.
+
+## 📁 Project Structure
+
 ```
-# Charming-Moments
+charming-moments-frontend/
+├── public/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   │   ├── common/
+│   │   └── ...
+│   ├── pages/
+│   ├── services/
+│   ├── stores/
+│   ├── types/
+│   ├── utils/
+│   ├── App.tsx
+│   ├── main.tsx
+│   └── styles.css
+├── .env
+├── .gitignore
+├── index.html
+├── package.json
+└── ...
+```
+
+  * **`public/`**: Contains static assets that are not processed by Vite.
+  * **`src/assets/`**: Images, icons, and other static assets.
+  * **`src/components/`**: Reusable React components.
+      * **`common/`**: Generic components like Layout, Header, Footer, etc.
+  * **`src/pages/`**: Page components for each route.
+  * **`src/services/`**: API service for interacting with the backend and Cloudinary.
+  * **`src/stores/`**: Zustand stores for state management.
+  * **`src/types/`**: TypeScript type definitions.
+  * **`src/utils/`**: Utility functions.
+  * **`App.tsx`**: The root component with routing setup.
+  * **`main.tsx`**: The entry point of the application.
+  * **`styles.css`**: Global styles and Tailwind CSS configuration.
+
+## 🚀 Deployment
+
+This project is configured for deployment on Vercel. The `vercel.json` file contains the necessary configuration for building and routing. To deploy, simply connect your Git repository to Vercel and it will automatically build and deploy the application.
